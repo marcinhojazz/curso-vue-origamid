@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+
+
+    <title>Vue.Js 0202 Data</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- {{acoes}} -->
+        <p>LatestTime: {{acoes.latestTime}}</p>
+        <p>latestPrice: {{acoes.latestPrice}}</p>
+        <p>companyName: {{acoes.companyName}}</p>
+        <p>symbol: {{acoes.symbol}}</p>
+        <p>AVG Total Volume: {{acoes.avgTotalVolume}}</p>
+
+        <button @click="puxarAcoes">Puxar Ações</button>
+    </div>
+
+    
+    <script>
+        
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                acoes: {},
+            },
+            methods: {
+                puxarAcoes() {
+                    fetch("https://cloud.iexapis.com/stable/stock/fb/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be")
+                        .then(response => response.json())
+                        .then(json => {
+                            this.acoes = json;
+                        })   
+                }
+            }
+        })
+        
+    </script>
+
+</body>
+</html>
+
+<!-- SECRET KEY
+sk_51e0e810a8a94e1b94740ff42f5159be -->
+
+<!-- https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be -->
+
