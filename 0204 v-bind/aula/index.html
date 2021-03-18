@@ -7,29 +7,27 @@
     <script src="./vue.js"></script>
 
 
-    <title>Vue.Js 0202 Data</title>
+    <title>Vue.Js 0204 v-bind</title>
 </head>
 <body>
 
-    <!-- EXERCÍCIO 1 -->
     <div id="app">
-        <a v-bind:href="link">Link Google</a>
-        <p :class="cor" class="ativo"></p>
-    </div>  
+        <a :href="link">LinkGoogle</a>
+        <p :class="cor" class="ativo">Texto</p>
+        <p :class="comprou ? 'verde' : 'vermelho'">O cliente comprou?</p>
+    </div> 
     
-    
-
     <script>
-
-// EXERCÍCIO 1
         const vm = new Vue({
             el: "#app",
             data: {
-                link: "https://www.google.com/",
-                cor: "azul"
+                link: "https://www.google.com",
+                cor: "azul",
+                liberar: "verde",
+                naoliberar: "vermelho",
+                comprou: true,
             }
-        });
-
+        })
     </script>
 
 </body>

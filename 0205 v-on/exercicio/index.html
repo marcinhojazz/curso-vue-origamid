@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+
+
+    <title>Vue.Js EXERCÍCIO 0205 v-on</title>
+</head>
+<body>
+
+    <div id="app">
+        <ul>
+            <li><a @click.prevent="puxarAcao" href="https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be">Apple</a></li>
+            <li><a @click.prevent="puxarAcao" href="https://cloud.iexapis.com/stable/stock/goog/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be">Google</a></li>
+            <li><a @click.prevent="puxarAcao" href="https://cloud.iexapis.com/stable/stock/amzn/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be">Amazon</a></li>
+            <li><a @click.prevent="puxarAcao" href="https://cloud.iexapis.com/stable/stock/ebay/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be">Ebay</a></li>
+            <li><a @click.prevent="puxarAcao" href="https://cloud.iexapis.com/stable/stock/pypl/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be">Paypal</a></li>
+        </ul>
+        
+            <div>
+                <p>Empresa: <h3 style="color: red;">{{acao.companyName}}</h3></p>
+                <p>Valor da Ação: <h3 style="color: red;">{{acao.latestPrice}}</h3></p>
+                <p>Valor de Mercado: <h3 style="color: red;">{{acao.marketCap}}</h3></p>
+            </div>
+    </div>
+
+    <!-- 
+        utilizando API
+        https://api.iextrading.com...
+
+        Adicione um evento de clique a cada <a> do html
+        acima e previna o comportamento padrão.
+
+        Faça o fetch dos dados do href ao click e mostre na
+        interface a companyName, latestPrice, marketCap
+    -->
+
+    
+    <script>
+        
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                acao: {}
+            },
+            methods: {
+                puxarAcao(event) {
+                    const url = event.currentTarget.href
+                    fetch(url)
+                    .then(r => r.json())
+                    .then(r => {
+                        this.acao = r;
+                    })
+                }
+            }
+        })
+        
+
+    </script>
+
+</body>
+</html>

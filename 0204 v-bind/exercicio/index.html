@@ -6,14 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./vue.js"></script>
 
+    <style>
+        .verde{
+            color: green;
+        }
+        .vermelho{
+            color: red;
+        }
+    </style>
 
-    <title>Vue.Js 0202 Data</title>
+    <title>Vue.Js EXERCÍCIO 0202 Data</title>
 </head>
 <body>
 
     <div id="app">
-        {{cor}}
-    </div>
+
+        <div>
+            <p>Nome da empresa: {{google.companyName}}</p>
+            <p :class="google.marketCap > google.marketCap ? 'verde' : 'vermelho'">Capital: {{google.marketCap}}</p>
+        </div>
+        <div>
+            <p>Nome da empresa: {{apple.companyName}}</p>
+            <p :class="apple.marketCap > apple.marketCap ? 'verde' : 'vermelho'">Capital:{{apple.marketCap}}</p>
+        </div>
+
+        <button @click="puxarDados">Puxar dados</button>
+
+        </div>
     
     
     
@@ -22,7 +41,28 @@
         const vm = new Vue({
             el: "#app",
             data: {
-                cor: "Vermelho"
+                google: {},
+                apple: {},
+            },
+            methods: {
+                fetchGoogle() {
+                    fetch("https://cloud.iexapis.com/stable/stock/googl/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be")
+                    .then(r => r.json())
+                    .then(google => {
+                        this.google = google;
+                    })
+                },
+                fetchApple() {
+                    fetch("https://cloud.iexapis.com/stable/stock/aapl/quote?token=sk_51e0e810a8a94e1b94740ff42f5159be")
+                    .then(r => r.json())
+                    .then(apple => {
+                        this.apple = apple;
+                    })
+                },
+                puxarDados() {
+                    this.fetchGoogle();
+                    this.fetchApple();
+                }
             }
         });
 
